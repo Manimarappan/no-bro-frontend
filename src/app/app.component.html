@@ -1,4 +1,14 @@
-<nav>
-  <a routerLink="/">Home</a> | <a routerLink="/properties">Properties</a> | <a routerLink="/admin">Admin</a>
-</nav>
+<app-header></app-header>
+<div class="main-container">
+  <app-property-list 
+    [properties]="paginatedProperties" 
+    [filters]="filters" 
+    (applyFilters)="applyFilters()" 
+    (resetFilters)="resetFilters()" 
+    [currentPage]="currentPage" 
+    [totalPages]="totalPages" 
+    (prevPage)="prevPage()" 
+    (nextPage)="nextPage()">
+  </app-property-list>
+</div>
 <router-outlet></router-outlet>

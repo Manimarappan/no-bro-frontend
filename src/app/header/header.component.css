@@ -1,0 +1,71 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.ker{
+  font-size: 0.8rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  min-width: 0;
+  padding-right: 65px; /* Your fix to ensure space for the profile icon */
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item i {
+  font-size: 1.5rem;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.nav-item:hover {
+  color: #007bff;
+}
+
+.nav-item:hover i {
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav {
+    justify-content: center;
+    padding-right: 0; /* Reset padding on mobile if not needed */
+  }
+}
