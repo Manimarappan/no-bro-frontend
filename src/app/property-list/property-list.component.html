@@ -1,85 +1,76 @@
-<div class="main-container">
-    <!-- Filter section -->
-  <aside class="filter-panel">
-    <h2>Filter Properties</h2>
-    <form class="filter-form">
-      <div class="filter-group">
-        <label for="property-type">Property Type</label>
-        <select id="property-type" [(ngModel)]="filters.propertyType" name="property-type">
-          <option value="">All</option>
-          <option value="apartment">Apartment</option>
-          <option value="house">House</option>
-          <option value="villa">Villa</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label for="furnishing">Furnishing</label>
-        <select id="furnishing" [(ngModel)]="filters.furnishing" name="furnishing">
-          <option value="">All</option>
-          <option value="furnished">Furnished</option>
-          <option value="semi-furnished">Semi-Furnished</option>
-          <option value="unfurnished">Unfurnished</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label for="rent">Rent Range (₹)</label>
-        <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="50000" step="1000">
-        <span>{{ filters.rent | currency:'INR' }}</span>
-      </div>
-      <div class="filter-group">
-        <label for="location">Location</label>
-        <input type="text" id="location" [(ngModel)]="filters.location" name="location" placeholder="e.g., Electronic City">
-      </div>
-      <button type="button" (click)="applyFilters.emit()">Apply Filters</button>
-      <button type="button" (click)="resetFilters.emit()">Reset</button>
-    </form>
-  </aside>
+<aside class="filter-panel">
+  <h2>Filter Properties</h2>
+  <form class="filter-form">
+    <div class="filter-group">
+      <label for="property-type">Property Type</label>
+      <select id="property-type" [(ngModel)]="filters.propertyType" name="property-type">
+        <option value="">All</option>
+        <option value="apartment">Apartment</option>
+        <option value="house">House</option>
+        <option value="villa">Villa</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="furnishing">Furnishing</label>
+      <select id="furnishing" [(ngModel)]="filters.furnishing" name="furnishing">
+        <option value="">All</option>
+        <option value="furnished">Furnished</option>
+        <option value="semi-furnished">Semi-Furnished</option>
+        <option value="unfurnished">Unfurnished</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="rent">Rent Range (₹)</label>
+      <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="50000" step="1000">
+      <span>{{ filters.rent | currency:'INR' }}</span>
+    </div>
+    <div class="filter-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" [(ngModel)]="filters.location" name="location" placeholder="e.g., Electronic City">
+    </div>
+    <button type="button" (click)="onApplyFilters()">Apply Filters</button>
+    <button type="button" (click)="onResetFilters()">Reset</button>
+  </form>
+</aside>
 
-  <!-- property section -->
-  <section class="properties-panel">
-    <!-- <h2>Properties</h2> -->
-    <div class="properties-list">
-      <div class="property-card" *ngFor="let property of properties">
-
-        <div class="property-title">
-	        <h3>{{ property.title }}</h3>
-	      </div>
-	
-        <div class="property-price">
-          <p><strong>Rent:</strong> {{ property.rent | currency:'INR' }}</p>
-          <p><strong>Deposit:</strong> {{ property.deposit | currency:'INR' }}</p>
-          <p><strong>Area:</strong> {{ property.area }} sqft</p>
+<section class="properties-panel">
+  <h2>property</h2>
+  <div *ngIf="isLoading" class="loading">Loading properties...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!isLoading && !error" class="properties-list">
+    <div class="property-card" *ngFor="let property of properties">
+      <div class="property-title">
+        <h3>{{ property.title }}</h3>
+      </div>
+      <div class="property-price">
+        <p><strong>Rent:</strong> {{ property.rent | currency:'INR' }}</p>
+        <p><strong>Deposit:</strong> {{ property.deposit | currency:'INR' }}</p>
+        <p><strong>Area:</strong> {{ property.area }} sqft</p>
+      </div>
+      <div class="image-detail">
+        <div class="property-image">
+          <img src="./../../assets/images/pexels-naimbic-2.jpg">
         </div>
-
-        <div class="image-detail">
-          <div class="property-image">
-            <img src="./../../assets/images/pexels-naimbic-2.jpg">
+        <div class="property-detail">
+          <div class="detail">
+            <p><strong>Location:</strong><br> {{ property.location }}</p>
+            <p><strong>Type:</strong><br> {{ property.type }}</p>
           </div>
-            
-          <div class="property-detail">
-            <div class="detail">
-              <p><strong>Location:</strong><br> {{ property.location }}</p>
-              <p><strong>Type:</strong><br> {{ property.type }}</p>
-            </div>
-            <div class="detail">
-              <p><strong>Furnishing:</strong><br> {{ property.furnishing }}</p>
-              <p><strong>Availability:</strong><br> {{ property.availability }}</p>
-            </div>
-            <div class="contact-owner">
-              <button class="owner-detail" (click)="viewDetails(property.id)">Get Owner Details</button>
-              <button class="liked"><i class="fa-regular fa-heart"></i></button>              
-            </div>
-            
+          <div class="detail">
+            <p><strong>Furnishing:</strong><br> {{ property.furnishing }}</p>
+            <p><strong>Availability:</strong><br> {{ property.availability }}</p>
+          </div>
+          <div class="contact-owner">
+            <button class="owner-detail" (click)="viewDetails(property.id)">Get Owner Details</button>
+            <button class="liked"><i class="fa-regular fa-heart"></i></button>
           </div>
         </div>
-              
       </div>
     </div>
-    <!-- <div *ngIf="totalPages > 1" class="pagination">
-      <button (click)="prevPage.emit()" [disabled]="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button (click)="nextPage.emit()" [disabled]="currentPage === totalPages">Next</button>
-    </div> -->
-  </section>
-  
-</div>
+  </div>
+  <div *ngIf="totalPages > 1" class="pagination">
+    <button (click)="onPrevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="onNextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</section>

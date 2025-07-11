@@ -6,6 +6,11 @@
   margin-right: auto;
 }
 
+.properties{
+  background-color: rgb(158, 104, 49);
+  padding-top: 90px;
+}
+
 @media (max-width: 768px) {
   .main-container {
     padding: 0.5rem;

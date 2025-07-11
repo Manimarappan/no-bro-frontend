@@ -10,6 +10,7 @@ html, body {
 .main-container {
   display: grid;
   grid-template-columns: 1fr 3.5fr;
+  background-color: aquamarine;
   gap: 1rem;
   /* padding: 10px; */
   max-width: 1200px;
@@ -108,5 +109,14 @@ html, body {
   object-fit: cover;
   padding: 20px 10px;
   
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2em;
+}
+.error {
+  color: red;
 }
 

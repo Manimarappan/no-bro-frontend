@@ -17,10 +17,11 @@ export const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'enquiry', component: EnquiryComponent },
   { path: 'property-list', component: PropertyListComponent },
-  { path: 'property-detail', component: PropertyDetailComponent },
+  { path: 'property-detail/:id', component: PropertyDetailComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'liked-properties', component: LikedPropertiesComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  // { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/property-list', pathMatch: 'full' }
 ];
