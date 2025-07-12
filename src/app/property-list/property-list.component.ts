@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { firstValueFrom, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Property } from '../models/property';
 import { FormsModule } from '@angular/forms';
@@ -50,18 +50,23 @@ loadProperties(): void {
     pageSize: '10'
   };
 
-  this.http.get<{ success: boolean, message: string, data: any[] }>(this.apiUrl, { params }) // Use 'any[]' temporarily for flexibility
-    .pipe(
-      tap(response => {
-        console.log('API Response:', response);
-        if (response.success) {
-          this.properties = response.data.map(item => ({
+  this.http.get<{ success: boolean, message: string, data: any[] }>(this.apiUrl, { params })
+  .pipe(
+    tap(async response => {
+      console.log('API Response:', response);
+      if (response.success) {
+        this.properties = await Promise.all(response.data.map(async item => {
+          // Fetch address details using the address ID
+          const addressResponse = await firstValueFrom(this.http.get<{ success: boolean, data: any }>(`${this.apiUrl}/address/${item.address}`));
+          const address = addressResponse.success ? addressResponse.data : { area: 'Not specified', city: 'Not specified' };
+
+          return {
             id: item.propertyId, // Map backend's propertyId to id
             title: item.propertyName, // Map propertyName to title
             rent: item.price, // Map price to rent
             deposit: item.deposit,
             area: item.area,
-            location: item.location || 'Not specified', // Handle missing location
+            location: `${address.area}, ${address.city}`, // Combine area and city for location
             type: item.propertyType, // Map propertyType to type
             furnishing: item.furnishing,
             availability: item.status || item.available ? 'Available' : 'Not Available', // Map status or available to availability
@@ -74,26 +79,28 @@ loadProperties(): void {
             viewsCount: item.viewsCount,
             listedBy: item.listedBy || item.userId, // Map listedBy or userId
             isFeatured: item.featured || item.isFeatured, // Map featured or isFeatured
-            imageId: item.imageId
-          }));
-          console.log('Mapped Properties:', this.properties); // Debug mapped data
-          this.totalPages = response.data.length > 0 ? Math.ceil(response.data.length / 10) : 1; // Adjust based on backend pagination
-          this.isLoading = false;
-        } else {
-          this.error = response.message || 'Failed to load properties.';
-          this.isLoading = false;
-        }
-      }),
-      catchError(error => {
-        console.error('HTTP Error:', error);
-        this.error = 'Failed to load properties. Please try again.';
+            imageId: item.imageId,
+            addressId : item.address
+          };
+        }));
+        console.log('Mapped Properties:', this.properties); // Debug mapped data
+        this.totalPages = response.data.length > 0 ? Math.ceil(response.data.length / 10) : 1; // Adjust based on backend pagination
         this.isLoading = false;
-        return this.handleError(error);
-      })
-    )
-    .subscribe();
-}
+      } else {
+        this.error = response.message || 'Failed to load properties.';
+        this.isLoading = false;
+      }
+    }),
+    catchError(error => {
+      console.error('HTTP Error:', error);
+      this.error = 'Failed to load properties. Please try again.';
+      this.isLoading = false;
+      return this.handleError(error);
+    })
+  )
+  .subscribe();
   
+}
 
   // Handle filter application
   onApplyFilters(): void {

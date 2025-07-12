@@ -4,6 +4,7 @@ export interface Property {
   title: string; // Maps to property_name
   rent: number; // Maps to price
   deposit: number;
+  addressId: number;
   area: number;
   location: string;
   type: string; // Maps to property_type
@@ -19,4 +20,9 @@ export interface Property {
   listedBy?: string | number;
   isFeatured?: boolean;
   imageId?: number;
+  parking?: boolean;
+  userId?: number;
+  createdAt?: string;
+  updatedAt?: string;
+
 }
