@@ -1,14 +1,172 @@
-<div *ngIf="property">
-      <h2>{{ property.title }}</h2>
-      <p><strong>Rent:</strong> {{ property.rent | currency:'INR' }}</p>
-      <p><strong>Deposit:</strong> {{ property.deposit | currency:'INR' }}</p>
-      <p><strong>Area:</strong> {{ property.area }} sqft</p>
-      <p><strong>Location:</strong> {{ property.location }}</p>
-      <p><strong>Type:</strong> {{ property.type }}</p>
-      <p><strong>Furnishing:</strong> {{ property.furnishing }}</p>
-      <p><strong>Availability:</strong> {{ property.availability }}</p>
-      <p *ngIf="property.bedrooms"><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
-      <p *ngIf="property.bathrooms"><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-      <p *ngIf="property.balconies"><strong>Balconies:</strong> {{ property.balconies }}</p>
+<div *ngIf="property" class="property-detail-container">
+  <!-- Image Section -->
+  <div class="image-section" *ngIf="image?.data">
+    <img [src]="image.data" alt="Property Image" class="property-image" />
+  </div>
+
+  <!-- Property Details Section -->
+  <div class="property-details" *ngIf="property">
+    <h2>{{ property.title || 'Property Details' }}</h2>
+    <table class="details-table">
+      <tr>
+        <td class="label">Rent</td>
+        <td class="value">{{ property.rent | currency:'INR' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Deposit</td>
+        <td class="value">{{ property.deposit | currency:'INR' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Area</td>
+        <td class="value">{{ property.area || 0 }} sqft</td>
+      </tr>
+      <tr>
+        <td class="label">Location</td>
+        <td class="value">{{ property.location }}</td>
+      </tr>
+      <tr>
+        <td class="label">Property Type</td>
+        <td class="value">{{ property.type }}</td>
+      </tr>
+      <tr>
+        <td class="label">Furnishing</td>
+        <td class="value">{{ property.furnishing || 'Not specified' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Availability</td>
+        <td class="value">{{ property.availability }}</td>
+      </tr>
+      <tr>
+        <td class="label">Bedrooms</td>
+        <td class="value">{{ property.bedrooms || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Bathrooms</td>
+        <td class="value">{{ property.bathrooms || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Balconies</td>
+        <td class="value">{{ property.balconies || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Floor Number</td>
+        <td class="value">{{ property.floorNumber }}</td>
+      </tr>
+      <tr>
+        <td class="label">Total Floors</td>
+        <td class="value">{{ property.totalFloors || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Year Built</td>
+        <td class="value">{{ property.yearBuilt || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Views Count</td>
+        <td class="value">{{ property.viewsCount }}</td>
+      </tr>
+      <tr>
+        <td class="label">Listed By</td>
+        <td class="value">{{ property.listedBy || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Featured</td>
+        <td class="value">{{ property.isFeatured ? 'Yes' : 'No' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Created At</td>
+        <td class="value">{{ property.createdAt ? (property.createdAt | date:'medium') : 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Updated At</td>
+        <td class="value">{{ property.updatedAt ? (property.updatedAt | date:'medium') : 'N/A' }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- User Details Section -->
+  <div class="user-details" *ngIf="user">
+    <h3>User Details</h3>
+    <table class="details-table">
+      <tr>
+        <td class="label">Name</td>
+        <td class="value">{{ user.firstName || 'Unknown' }} {{ user.lastName || '' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Email</td>
+        <td class="value">{{ user.email || 'Unknown' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Phone Number</td>
+        <td class="value">{{ user.phoneNumber || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">User Type</td>
+        <td class="value">{{ user.userType || 'Not specified' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Verified</td>
+        <td class="value">{{ user.isVerified ? 'Yes' : 'No' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Last Login</td>
+        <td class="value">{{ user.lastLogin ? (user.lastLogin | date:'medium') : 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Created At</td>
+        <td class="value">{{ user.createdAt ? (user.createdAt | date:'medium') : 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Updated At</td>
+        <td class="value">{{ user.updatedAt ? (user.updatedAt | date:'medium') : 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Status</td>
+        <td class="value">{{ user.status || 'N/A' }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Address Details Section -->
+  <div class="address-details" *ngIf="address">
+    <h3>Address Details</h3>
+    <table class="details-table">
+      <tr>
+        <td class="label">Street</td>
+        <td class="value">{{ address.street || 'Not specified' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Landmark</td>
+        <td class="value">{{ address.landmark || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Area</td>
+        <td class="value">{{ address.area || 'Not specified' }}</td>
+      </tr>
+      <tr>
+        <td class="label">City</td>
+        <td class="value">{{ address.city || 'Not specified' }}</td>
+      </tr>
+      <tr>
+        <td class="label">State</td>
+        <td class="value">{{ address.state || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Country</td>
+        <td class="value">{{ address.country || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Pin Code</td>
+        <td class="value">{{ address.pinCode || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Coordinates</td>
+        <td class="value">{{ address.latitude || 'N/A' }}, {{ address.longitude || 'N/A' }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Back Button -->
+  <button (click)="goBack()" class="back-button">Back to Property List</button>
 </div>
-<!-- <div *ngIf="error" class="error">{{ error }}</div> -->
+
+<div *ngIf="error" class="error">{{ error }}</div>

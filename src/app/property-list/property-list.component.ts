@@ -80,7 +80,6 @@ loadProperties(): void {
             listedBy: item.listedBy || item.userId, // Map listedBy or userId
             isFeatured: item.featured || item.isFeatured, // Map featured or isFeatured
             imageId: item.imageId,
-            addressId : item.address
           };
         }));
         console.log('Mapped Properties:', this.properties); // Debug mapped data

@@ -4,7 +4,7 @@ export interface Property {
   title: string; // Maps to property_name
   rent: number; // Maps to price
   deposit: number;
-  addressId: number;
+  address?: number;
   area: number;
   location: string;
   type: string; // Maps to property_type
