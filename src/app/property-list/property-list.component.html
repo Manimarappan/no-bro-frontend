@@ -2,34 +2,54 @@
   <h2>Filter Properties</h2>
   <form class="filter-form">
     <div class="filter-group">
-      <label for="property-type">Property Type</label>
-      <select id="property-type" [(ngModel)]="filters.propertyType" name="property-type">
-        <option value="">All</option>
-        <option value="apartment">Apartment</option>
-        <option value="house">House</option>
-        <option value="villa">Villa</option>
+      <!-- <label for="property-type">Property Type</label> -->
+      <select id="property-type" [(ngModel)]="filters.propertyType" name="property-type" (change)="onApplyFilters()">
+        <option value="">property-type</option>
+        <option value="APARTMENT">Apartment</option>
+        <option value="VILLA">Villa</option>
+        <option value="COMMERCIAL">Commercial</option>
       </select>
     </div>
     <div class="filter-group">
-      <label for="furnishing">Furnishing</label>
-      <select id="furnishing" [(ngModel)]="filters.furnishing" name="furnishing">
-        <option value="">All</option>
-        <option value="furnished">Furnished</option>
-        <option value="semi-furnished">Semi-Furnished</option>
-        <option value="unfurnished">Unfurnished</option>
+      <select id="bhk-type" [(ngModel)]="filters.bhkType" name="bhk-type" (change)="onApplyFilters()">
+        <option value="">property-type</option>
+        <option value="1BHK">1BHK</option>
+        <option value="2BHK">2BHK</option>
+        <option value="3BHK">3BHK</option>
+        <option value="4BHK">4BHK</option>
+        <option value="5BHK+">5BHK+</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <!-- <label for="furnishing">Furnishing</label> -->
+      <select id="furnishing" [(ngModel)]="filters.furnishing" name="furnishing" (change)="onApplyFilters()">
+        <option value="">Furnishing</option>
+        <option value="FURNISHED">Furnished</option>
+        <option value="SEMI_FURNISHED">Semi-Furnished</option>
+        <option value="UNFURNISHED">Unfurnished</option>
       </select>
     </div>
     <div class="filter-group">
       <label for="rent">Rent Range (₹)</label>
-      <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="50000" step="1000">
+      <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="100000" step="1000" (change)="onApplyFilters()">
       <span>{{ filters.rent | currency:'INR' }}</span>
     </div>
     <div class="filter-group">
-      <label for="location">Location</label>
-      <input type="text" id="location" [(ngModel)]="filters.location" name="location" placeholder="e.g., Electronic City">
+      <!-- <label for="location">Location</label> -->
+      <select id="location" [(ngModel)]="filters.location" name="location" (change)="onApplyFilters()">
+        <option value="">Location</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Kochi">Kochi</option>
+        <option value="Pune">Pune</option>
+      </select>
     </div>
-    <button type="button" (click)="onApplyFilters()">Apply Filters</button>
-    <button type="button" (click)="onResetFilters()">Reset</button>
+    <div class="filter-actions">
+      <button type="button" (click)="onApplyFilters()">Apply Filters</button>
+      <button type="button" (click)="onResetFilters()">Reset</button>
+    </div>
   </form>
 </aside>
 
@@ -54,11 +74,11 @@
         <div class="property-detail">
           <div class="detail">
             <p><strong>Location:</strong><br> {{ property.location }}</p>
-            <p><strong>Type:</strong><br> {{ property.type }}</p>
+            <p><strong>Type:</strong><br> {{ property.propertyType }}</p>
           </div>
           <div class="detail">
+            <p><strong>BHK:</strong><br> {{ property.bhk }}</p>
             <p><strong>Furnishing:</strong><br> {{ property.furnishing }}</p>
-            <p><strong>Availability:</strong><br> {{ property.availability }}</p>
           </div>
           <div class="contact-owner">
             <button class="owner-detail" (click)="viewDetails(property.id)">Get More Details</button>

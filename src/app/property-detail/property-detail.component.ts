@@ -23,6 +23,7 @@ export class PropertyDetailComponent implements OnInit {
   image!:Image;
   address!:Address;
   user!:User;
+  propertyData!:Property;
 
   constructor(
     private http: HttpClient,
@@ -90,6 +91,9 @@ export class PropertyDetailComponent implements OnInit {
 
         console.log(this.image);
 
+        console.log("proprety: " ,propertyData);
+        console.log("proprety: " ,this.property);
+
         // Assign fetched data to property
         this.property = {
           ...propertyData,
@@ -97,6 +101,8 @@ export class PropertyDetailComponent implements OnInit {
           // propertyAddress: address,
           // image: image
         };
+
+        
         this.error = null; // Clear error on successful load
       } else {
         this.error = 'Failed to load property details';
@@ -106,11 +112,11 @@ export class PropertyDetailComponent implements OnInit {
       this.property = null;
       this.error = 'An error occurred while loading property details';
     }
+   
   }
 
   goBack() {
     this.router.navigate(['/property-list']);
   }
-
-  
+   
 }

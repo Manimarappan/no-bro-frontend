@@ -5,11 +5,11 @@ export interface Property {
   rent: number; // Maps to price
   deposit: number;
   address?: number;
+  bhk:string;
   area: number;
-  location: string;
-  type: string; // Maps to property_type
+  propertyType: string; // Maps to property_type
   furnishing: string;
-  availability: string; // Maps to status
+  status: string; // Maps to status
   bedrooms?: number; // Optional fields from backend
   bathrooms?: number;
   balconies?: number;
@@ -24,5 +24,6 @@ export interface Property {
   userId?: number;
   createdAt?: string;
   updatedAt?: string;
+  location: string;
 
 }

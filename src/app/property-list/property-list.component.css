@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   padding: 0;
   border: 0;
+
   /* background-color: #b96464; */
 }
 
@@ -120,3 +121,157 @@ html, body {
   color: red;
 }
 
+/* Filter CSS ------------------------------------------------ */
+
+.filter-panel {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* margin-bottom: 1.5rem; */
+    margin-top: 29px;
+}
+
+.filter-panel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.filter-group label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.filter-group select,
+.filter-group input[type="range"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.filter-group select:focus,
+.filter-group input[type="range"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.filter-group span {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.filter-actions button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-actions button:hover {
+    background-color: #0056b3;
+}
+
+.filter-actions button:last-child {
+    background-color: #6c757d;
+}
+
+.filter-actions button:last-child:hover {
+    background-color: #5a6268;
+}
+
+.property-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.property-table th,
+.property-table td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.property-table th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+}
+
+.property-table td button {
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.property-table td button:hover {
+    background-color: #218838;
+}
+
+.pagination {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 1rem;
+    color: #333;
+}
+
+.loading,
+.error,
+.no-properties {
+    text-align: center;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.error {
+    color: #dc3545;
+}

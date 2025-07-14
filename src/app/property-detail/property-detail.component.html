@@ -21,12 +21,16 @@
         <td class="value">{{ property.area || 0 }} sqft</td>
       </tr>
       <tr>
-        <td class="label">Location</td>
-        <td class="value">{{ property.location }}</td>
+        <td class="label">BHK</td>
+        <td class="value">{{ property.bhk || "NA" }}</td>
       </tr>
+      <!-- <tr>
+        <td class="label">Location</td>
+        <td class="value">{{ property. }}</td>
+      </tr> -->
       <tr>
         <td class="label">Property Type</td>
-        <td class="value">{{ property.type }}</td>
+        <td class="value">{{ property.propertyType }}</td>
       </tr>
       <tr>
         <td class="label">Furnishing</td>
@@ -34,7 +38,7 @@
       </tr>
       <tr>
         <td class="label">Availability</td>
-        <td class="value">{{ property.availability }}</td>
+        <td class="value">{{ property.status }}</td>
       </tr>
       <tr>
         <td class="label">Bedrooms</td>
