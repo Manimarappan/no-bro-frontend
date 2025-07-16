@@ -1,6 +1,9 @@
 <aside class="filter-panel">
-  <h2>Filter Properties</h2>
+  
   <form class="filter-form">
+    <div class="filter-group">
+      <h2>Filter Properties</h2>
+    </div>
     <div class="filter-group">
       <!-- <label for="property-type">Property Type</label> -->
       <select id="property-type" [(ngModel)]="filters.propertyType" name="property-type" (change)="onApplyFilters()">
@@ -12,7 +15,7 @@
     </div>
     <div class="filter-group">
       <select id="bhk-type" [(ngModel)]="filters.bhkType" name="bhk-type" (change)="onApplyFilters()">
-        <option value="">property-type</option>
+        <option value="">BHK</option>
         <option value="1BHK">1BHK</option>
         <option value="2BHK">2BHK</option>
         <option value="3BHK">3BHK</option>
@@ -29,25 +32,27 @@
         <option value="UNFURNISHED">Unfurnished</option>
       </select>
     </div>
-    <div class="filter-group">
-      <label for="rent">Rent Range (₹)</label>
+    <div class="filter-group rangecss">
+      <label for="rent">Rent Range (₹):</label>
       <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="100000" step="1000" (change)="onApplyFilters()">
       <span>{{ filters.rent | currency:'INR' }}</span>
     </div>
     <div class="filter-group">
       <!-- <label for="location">Location</label> -->
-      <select id="location" [(ngModel)]="filters.location" name="location" (change)="onApplyFilters()">
+      <select id="city" [(ngModel)]="filters.city" name="city" (change)="onApplyFilters()">
         <option value="">Location</option>
         <option value="Bangalore">Bangalore</option>
         <option value="Mumbai">Mumbai</option>
         <option value="Chennai">Chennai</option>
-        <option value="Delhi">Delhi</option>
+        <option value="New Delhi">Delhi</option>
         <option value="Kochi">Kochi</option>
         <option value="Pune">Pune</option>
+        <option value="Miami">Miami</option>
+        <option value="Hyderabad">Hyderabad</option>
       </select>
     </div>
     <div class="filter-actions">
-      <button type="button" (click)="onApplyFilters()">Apply Filters</button>
+      <!-- <button type="button" (click)="onApplyFilters()">Apply Filters</button> -->
       <button type="button" (click)="onResetFilters()">Reset</button>
     </div>
   </form>
@@ -63,7 +68,7 @@
         <h3>{{ property.title }}</h3>
       </div>
       <div class="property-price">
-        <p><strong>Rent:</strong> {{ property.rent | currency:'INR' }}</p>
+        <p><strong>Rent:</strong> {{ property.price | currency:'INR' }}</p>
         <p><strong>Deposit:</strong> {{ property.deposit | currency:'INR' }}</p>
         <p><strong>Area:</strong> {{ property.area }} sqft</p>
       </div>
@@ -73,7 +78,7 @@
         </div>
         <div class="property-detail">
           <div class="detail">
-            <p><strong>Location:</strong><br> {{ property.location }}</p>
+            <p><strong>Location:</strong><br> {{ property.location }}, {{ property.city }}</p>
             <p><strong>Type:</strong><br> {{ property.propertyType }}</p>
           </div>
           <div class="detail">

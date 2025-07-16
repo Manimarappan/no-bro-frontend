@@ -16,18 +16,19 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 })
 export class PropertyListComponent implements OnInit {
     properties: Property[] = [];
-    filters: { propertyType: string, bhkType: string, furnishing: string, rent: number, location: string } = {
+    filters: { propertyType: string, bhkType: string, furnishing: string, rent: number, city: string } = {
         propertyType: '',
         bhkType: '',
         furnishing: '',
         rent: 50000,
-        location: ''
+        city: ''
     };
-    currentPage: number = 1;
+    currentPage: number = 0;
     totalPages: number = 1;
     isLoading: boolean = false;
     error: string | null = null;
-    private apiUrl = 'http://localhost:8080/api/properties';
+    private apiUrl = 'http://localhost:8080/api/properties/search';
+    private addressApiUrl = 'http://localhost:8080/api/properties/address';
 
     propertyTypeOptions: string[] = ['APARTMENT', 'VILLA', 'COMMERCIAL'];
     furnishingOptions: string[] = ['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'];
@@ -47,31 +48,33 @@ export class PropertyListComponent implements OnInit {
             propertyType: this.filters.propertyType || '',
             bhk: this.filters.bhkType || '', // Map bhkType to bhk for backend
             furnishing: this.filters.furnishing || '',
-            rent: this.filters.rent.toString(),
-            location: this.filters.location || '',
+            rent: this.filters.rent >= 0 ? this.filters.rent.toString() : '0',
+            city: this.filters.city || '',
             page: this.currentPage.toString(),
-            pageSize: '10'
+            pageSize: '5'
         };
 
-        this.http.get<{ success: boolean, message: string, data: any[], totalElements: number }>(this.apiUrl, { params })
+        this.http.get<{ success: boolean, message: string, data: { content: any[], totalPages: number, totalElements: number } }>(this.apiUrl, { params })
             .pipe(
                 tap(async response => {
                     console.log('API Response:', response);
                     if (response.success) {
-                        this.properties = await Promise.all(response.data.map(async item => {
-                            const addressResponse = await firstValueFrom(
-                                this.http.get<{ success: boolean, data: any }>(`${this.apiUrl}/address/${item.address}`)
-                            ).catch(() => ({ success: false, data: { area: 'Not specified', city: 'Not specified' } }));
+                        this.properties = await Promise.all(response.data.content.map(async item => {
+                            const addressResponse = await firstValueFrom( //using addressId to fetch Address
+                               this.http.get<{ success: boolean, data: any }>(`${this.addressApiUrl}/${item.address}`)
+                            ).catch(() => ({ success: false, data: { location: 'Not specified' } }));
+                            //storeing fetched data only into addres.
                             const address = addressResponse.success ? addressResponse.data : { area: 'Not specified', city: 'Not specified' };
-
+                            //return and storing fetched property into properties
                             return {
                                 id: item.propertyId,
                                 title: item.propertyName,
-                                rent: item.price,
+                                price: item.price,
                                 deposit: item.deposit,
                                 area: item.area,
                                 bhk: item.bhk,
-                                location: `${address.area}, ${address.city}`,
+                                city: `${address.city}`,
+                                location : `${address.location}`,
                                 propertyType: item.propertyType,
                                 furnishing: item.furnishing,
                                 status: item.status || (item.available ? 'Available' : 'Not Available'),
@@ -87,7 +90,7 @@ export class PropertyListComponent implements OnInit {
                                 imageId: item.imageId
                             };
                         }));
-                        this.totalPages = Math.ceil(response.totalElements / 10);
+                        this.totalPages = response.data.totalPages;
                         this.isLoading = false;
                     } else {
                         this.error = response.message || 'Failed to load properties.';
@@ -105,25 +108,25 @@ export class PropertyListComponent implements OnInit {
     }
 
     onApplyFilters(): void {
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.loadProperties();
     }
 
     onResetFilters(): void {
-        this.filters = { propertyType: '', bhkType: '', furnishing: '', rent: 50000, location: '' };
-        this.currentPage = 1;
+        this.filters = { propertyType: '', bhkType: '', furnishing: '', rent: 50000, city: '' };
+        this.currentPage = 0;
         this.loadProperties();
     }
 
     onPrevPage(): void {
-        if (this.currentPage > 1) {
+        if (this.currentPage > 0) {
             this.currentPage--;
             this.loadProperties();
         }
     }
 
     onNextPage(): void {
-        if (this.currentPage < this.totalPages) {
+        if (this.currentPage < this.totalPages - 1) {
             this.currentPage++;
             this.loadProperties();
         }

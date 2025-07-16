@@ -2,7 +2,7 @@ export interface Address {
   addressId: number;
   street: string;
   landmark: string;
-  area: string;
+  location: string;
   city: string;
   state: string;
   country: string;

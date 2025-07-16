@@ -10,7 +10,7 @@
     <table class="details-table">
       <tr>
         <td class="label">Rent</td>
-        <td class="value">{{ property.rent | currency:'INR' }}</td>
+        <td class="value">{{ property.price | currency:'INR' }}</td>
       </tr>
       <tr>
         <td class="label">Deposit</td>
@@ -144,7 +144,7 @@
       </tr>
       <tr>
         <td class="label">Area</td>
-        <td class="value">{{ address.area || 'Not specified' }}</td>
+        <td class="value">{{ address.location || 'Not specified' }}</td>
       </tr>
       <tr>
         <td class="label">City</td>

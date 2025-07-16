@@ -70,7 +70,7 @@ export class PropertyDetailComponent implements OnInit {
           addressId: propertyData.address || 0,
           street: 'Not specified',
           landmark: '',
-          area: 'Not specified',
+          location: 'Not specified',
           city: 'Not specified',
           state: '',
           country: '',

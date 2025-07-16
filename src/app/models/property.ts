@@ -2,7 +2,7 @@
 export interface Property {
   id: string; // Maps to property_id
   title: string; // Maps to property_name
-  rent: number; // Maps to price
+  price: number; // Maps to price
   deposit: number;
   address?: number;
   bhk:string;
@@ -24,6 +24,6 @@ export interface Property {
   userId?: number;
   createdAt?: string;
   updatedAt?: string;
-  location: string;
-
+  city: string;
+  location : string
 }
