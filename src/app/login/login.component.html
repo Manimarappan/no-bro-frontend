@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="container">
+  <div class="form-container">
+    <h1>Welcome</h1>
+    <p class="subheading">Please enter details to login</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email" />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" placeholder="Enter your password" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+        </div>
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
+    </form>
+    <p class="signup-link">
+      Don't have an account? <a routerLink="/signup">Sign up</a>
+    </p>
+  </div>
+  <div class="image-container">
+    <img src="https://images.pexels.com/photos/18195590/pexels-photo-18195590/free-photo-of-vintage-building-with-tower.jpeg" alt="Login Image" />
+  </div>
+</div>

@@ -1,1 +1,67 @@
-<p>signup works!</p>
+<div class="signup-container">
+  <div class="left-section">
+    <img src="https://cdn.britannica.com/73/114973-050-2DC46083/Midtown-Manhattan-Empire-State-Building-New-York.jpg" alt="Signup Illustration">
+    <p>Welcome to NoBroker! Join us to explore seamless property solutions.</p>
+  </div>
+  <div class="right-section">
+    <h1>NoBroker</h1>
+    <p>Create an account to get started with your property journey.</p>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error">
+          Please enter a valid email.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" formControlName="firstName" placeholder="Enter your first name">
+        <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="error">
+          First name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" formControlName="lastName" placeholder="Enter your last name">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <select formControlName="countryCode">
+          <option value="+91">+91 (India)</option>
+          <option value="+1">+1 (USA)</option>
+          <option value="+44">+44 (UK)</option>
+          <!-- Add more country codes as needed -->
+        </select>
+        <input type="tel" id="phone" formControlName="phone" placeholder="Enter your phone number">
+        <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched" class="error">
+          Please enter a valid phone number.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="userType">User Type</label>
+        <select id="userType" formControlName="userType">
+          <option value="tenant">Tenant</option>
+          <option value="owner">Owner</option>
+          <option value="agent">Agent</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" placeholder="Enter your password">
+        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error">
+          Password must be at least 8 characters long.
+        </div>
+      </div>
+      <p class="terms">
+        By signing up, you agree to our
+        <a routerLink="/terms">Terms</a> and
+        <a routerLink="/privacy">Privacy Policy</a>.
+      </p>
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+    <p class="signin-link">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>
