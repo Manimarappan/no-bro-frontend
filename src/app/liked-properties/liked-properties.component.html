@@ -1,1 +1,30 @@
-<p>liked-properties works!</p>
+<div class="main-container">
+  <h2>Total Properties: {{ totalProperties }}</h2>
+  <div class="property-card">
+    <div class="property-table">
+      <div class="table-header">
+        <div class="table-cell">Image</div>
+        <div class="table-cell">Property Name</div>
+        <div class="table-cell">City</div>
+        <div class="table-cell">Rent</div>
+        <div class="table-cell">Details</div>
+        <div class="table-cell">Action</div>
+      </div>
+      <div class="table-row" *ngFor="let property of properties">
+        <div class="table-cell">
+          <img [src]="property.image || 'assets/placeholder.jpg'" alt="Property Image" class="property-image">
+        </div>
+        <div class="table-cell">{{ property.propertyName }} - {{ property.bhk }}</div>
+        <div class="table-cell">{{ property.city || 'Loading...' }}</div>
+        <div class="table-cell">₹{{ property.price }}</div>
+        <div class="table-cell">
+          <a [routerLink]="['/property-detail', property.propertyId]" class="more-details">More Details</a>
+        </div>
+        <div class="table-cell">
+          <button (click)="removeProperty(property.propertyId)" class="remove-button">Remove</button>
+        </div>
+      </div>
+      <div *ngIf="!properties?.length" class="no-properties">No liked properties found.</div>
+    </div>
+  </div>
+</div>

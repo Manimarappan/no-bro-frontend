@@ -16,6 +16,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 })
 export class PropertyListComponent implements OnInit {
     properties: Property[] = [];
+
     filters: { propertyType: string, bhkType: string, furnishing: string, rent: number, city: string } = {
         propertyType: '',
         bhkType: '',
@@ -29,6 +30,7 @@ export class PropertyListComponent implements OnInit {
     error: string | null = null;
     private apiUrl = 'http://localhost:8080/api/properties/search';
     private addressApiUrl = 'http://localhost:8080/api/properties/address';
+    private likedApiUrl = 'http://localhost:8080/api/liked-properties';
 
     propertyTypeOptions: string[] = ['APARTMENT', 'VILLA', 'COMMERCIAL'];
     furnishingOptions: string[] = ['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'];
@@ -68,7 +70,7 @@ export class PropertyListComponent implements OnInit {
                             //return and storing fetched property into properties
                             return {
                                 id: item.propertyId,
-                                title: item.propertyName,
+                                propertyName: item.propertyName,
                                 price: item.price,
                                 deposit: item.deposit,
                                 area: item.area,
@@ -105,6 +107,27 @@ export class PropertyListComponent implements OnInit {
                 })
             )
             .subscribe();
+    }
+
+    //To add liked property into liked property database
+    addToLikedProperty(propertyId: string) {
+        console.log("user::"+Number(localStorage.getItem('userId')));
+        const userId = Number(localStorage.getItem('userId'));
+        if (!userId || userId <= 0) {
+            this.error = 'Please log in to like a property';
+            console.log("user id is not fetched");
+            return;
+        }
+        this.http.post(`${this.likedApiUrl}/${propertyId}?userId=${userId}`, {}).subscribe({
+            next: (response: any) => {
+                console.log('Property liked', response);
+                this.error = null;
+            },
+            error: (error) => {
+                console.error('Like failed', error);
+                this.error = 'Failed to like property: ' + (error.error?.message || 'Please try again');
+            }
+        });
     }
 
     onApplyFilters(): void {

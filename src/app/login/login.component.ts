@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
       this.http.post('http://localhost:8080/api/users/login', formData).subscribe({
         next: (response: any) => {
           console.log('Login successful', response);
+          localStorage.setItem('userId', response.data.userId.toString()); // Store userId
+          console.log('Stored userId in localStorage:', localStorage.getItem('userId')); // Debug log
           this.router.navigate(['/property-list']);
         },
         error: (error) => {

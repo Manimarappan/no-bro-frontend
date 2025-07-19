@@ -1,7 +1,7 @@
 // src/app/models/property.interface.ts
 export interface Property {
   id: string; // Maps to property_id
-  title: string; // Maps to property_name
+  propertyName: string; // Maps to property_name
   price: number; // Maps to price
   deposit: number;
   address?: number;

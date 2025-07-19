@@ -65,7 +65,7 @@
   <div *ngIf="!isLoading && !error" class="properties-list">
     <div class="property-card" *ngFor="let property of properties">
       <div class="property-title">
-        <h3>{{ property.title }}</h3>
+        <h3>{{ property.propertyName }}</h3>
       </div>
       <div class="property-price">
         <p><strong>Rent:</strong> {{ property.price | currency:'INR' }}</p>
@@ -87,7 +87,7 @@
           </div>
           <div class="contact-owner">
             <button class="owner-detail" (click)="viewDetails(property.id)">Get More Details</button>
-            <button class="liked"><i class="fa-regular fa-heart"></i></button>
+            <button class="liked" (click)="addToLikedProperty(property.id)" ><i class="fa-regular fa-heart"></i></button>
           </div>
         </div>
       </div>

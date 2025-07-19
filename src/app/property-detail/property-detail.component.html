@@ -6,7 +6,7 @@
 
   <!-- Property Details Section -->
   <div class="property-details" *ngIf="property">
-    <h2>{{ property.title || 'Property Details' }}</h2>
+    <h2>{{ property.propertyName || 'Property Details' }}</h2>
     <table class="details-table">
       <tr>
         <td class="label">Rent</td>
@@ -64,10 +64,10 @@
         <td class="label">Year Built</td>
         <td class="value">{{ property.yearBuilt || 'N/A' }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td class="label">Views Count</td>
         <td class="value">{{ property.viewsCount }}</td>
-      </tr>
+      </tr> -->
       <tr>
         <td class="label">Listed By</td>
         <td class="value">{{ property.listedBy || 'N/A' }}</td>
@@ -111,10 +111,10 @@
         <td class="label">Verified</td>
         <td class="value">{{ user.isVerified ? 'Yes' : 'No' }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td class="label">Last Login</td>
         <td class="value">{{ user.lastLogin ? (user.lastLogin | date:'medium') : 'N/A' }}</td>
-      </tr>
+      </tr> -->
       <tr>
         <td class="label">Created At</td>
         <td class="value">{{ user.createdAt ? (user.createdAt | date:'medium') : 'N/A' }}</td>
@@ -123,10 +123,10 @@
         <td class="label">Updated At</td>
         <td class="value">{{ user.updatedAt ? (user.updatedAt | date:'medium') : 'N/A' }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <td class="label">Status</td>
         <td class="value">{{ user.status || 'N/A' }}</td>
-      </tr>
+      </tr> -->
     </table>
   </div>
 
