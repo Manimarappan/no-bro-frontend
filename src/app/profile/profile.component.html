@@ -1,1 +1,50 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <h2>User Profile</h2>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="user" class="profile-details">
+
+   <div class="profile-item profile-pic-container">
+      <img [src]="user.profilePic || 'assets/placeholder.jpg'" alt="User Photo" class="profile-image">
+      <span *ngIf="!isEditing" class="verification-status">Not Verified</span>
+      <div *ngIf="isEditing" class="edit-image-container">
+        <input type="file" accept="image/jpeg" (change)="onFileSelected($event)" class="file-input">
+        <button *ngIf="selectedFile" (click)="uploadProfilePic()" class="upload-button">Upload Photo</button>
+      </div>
+    </div>
+
+    <div class="profile-item">
+      <label>Name:</label>
+      <span *ngIf="!isEditing">{{ user.firstName }} {{ user.lastName }}</span>
+      <div *ngIf="isEditing" class="edit-field">
+        <input [(ngModel)]="updatedUser.firstName" placeholder="First Name" required>
+        <input [(ngModel)]="updatedUser.lastName" placeholder="Last Name" required>
+      </div>
+    </div>
+    <div class="profile-item">
+      <label>User Type:</label>
+      <span *ngIf="!isEditing">{{ user.userType || 'N/A' }}</span>
+      <select *ngIf="isEditing" [(ngModel)]="updatedUser.userType" required>
+        <option value="" disabled>Select User Type</option>
+        <option value="TENANT">Tenant</option>
+        <option value="OWNER">Owner</option>
+      </select>
+    </div>
+    <div class="profile-item">
+      <label>Email:</label>
+      <span *ngIf="!isEditing">{{ user.email }}</span>
+      <input *ngIf="isEditing" [(ngModel)]="updatedUser.email" type="email" placeholder="Email" required>
+    </div>
+    <div class="profile-item">
+      <label>Phone:</label>
+      <span *ngIf="!isEditing">{{ user.phoneNumber || 'N/A' }}</span>
+      <input *ngIf="isEditing" [(ngModel)]="updatedUser.phoneNumber" placeholder="Phone">
+    </div>
+    <div class="profile-buttons">
+      <button *ngIf="!isEditing" (click)="toggleEdit()" class="update-button">Update Profile</button>
+      <button *ngIf="isEditing" (click)="updateProfile()" class="update-button">Save Changes</button>
+      <button *ngIf="isEditing" (click)="toggleEdit()" class="cancel-button">Cancel</button>
+      <button (click)="signOut()" class="signout-button">Sign Out</button>
+    </div>
+  </div>
+  <div *ngIf="!user && !error" class="loading">Loading...</div>
+</div>

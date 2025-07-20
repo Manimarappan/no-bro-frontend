@@ -6,11 +6,13 @@ import { EnquiryComponent } from './enquiry/enquiry.component';
 import { PropertyListComponent } from './property-list/property-list.component';
 import { PropertyDetailComponent } from './property-detail/property-detail.component';
 
-// Placeholder components (create these if needed)
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { LikedPropertiesComponent } from './liked-properties/liked-properties.component';
 import { ProfileComponent } from './profile/profile.component';
+
+import { TermsComponent } from './terms/terms.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,6 +24,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'liked-properties', component: LikedPropertiesComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'terms', component: TermsComponent },
+  { path: 'privacy', component: PrivacyPolicyComponent },
   // { path: '', redirectTo: '/home', pathMatch: 'full' }
   { path: '', redirectTo: '/property-list', pathMatch: 'full' }
 ];

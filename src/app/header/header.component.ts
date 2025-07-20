@@ -10,5 +10,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  userId:Number = Number(localStorage.getItem("userId"));
 }

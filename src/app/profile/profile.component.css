@@ -1,0 +1,134 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-pic-container {
+  position: relative;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.edit-image-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+}
+
+.verification-status {
+  position: absolute;
+  top: 80px;
+  left: 110px;
+  /* right: -40px; */
+  font-size: 14px;
+  color: #dc3545; /* Red for Not Verified */
+}
+
+.file-input {
+  margin-top: 10px;
+}
+
+.upload-button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.upload-button:hover {
+  background-color: #218838;
+}
+
+.profile-item label {
+  font-weight: bold;
+  width: 100px;
+  color: #333;
+}
+
+.profile-item span, .profile-item input, .profile-item select {
+  flex: 1;
+  font-size: 16px;
+}
+
+.edit-field {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-field input, select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.update-button, .cancel-button, .signout-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+}
+
+.update-button {
+  background-color: #007bff;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+}
+
+.signout-button {
+  background-color: #dc3545;
+}
+
+.error, .loading {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  margin-top: 20px;
+}
