@@ -34,7 +34,7 @@ export class PropertyListComponent implements OnInit {
 
     propertyTypeOptions: string[] = ['APARTMENT', 'VILLA', 'COMMERCIAL'];
     furnishingOptions: string[] = ['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'];
-    bhkTypeOptions: string[] = ['1BHK', '2BHK', '3BHK', '4BHK', '5BHK+'];
+    bhkTypeOptions: string[] = ['1BHK', '2BHK', '3BHK', '4BHK', '5BHK', '6BHK', '7BHK', '8BHK', '9BHK', '10BHK+'];
 
     constructor(private http: HttpClient, private router: Router) {}
 
@@ -53,7 +53,7 @@ export class PropertyListComponent implements OnInit {
             rent: this.filters.rent >= 0 ? this.filters.rent.toString() : '0',
             city: this.filters.city || '',
             page: this.currentPage.toString(),
-            pageSize: '5'
+            pageSize: '10'
         };
 
         this.http.get<{ success: boolean, message: string, data: { content: any[], totalPages: number, totalElements: number } }>(this.apiUrl, { params })

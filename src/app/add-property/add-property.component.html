@@ -1,0 +1,159 @@
+<div class="property-form-container">
+  <h2>Post Your Property</h2>
+  <div *ngIf="!isLoggedIn" class="error">
+    Please <a routerLink="/signup">sign up</a> or <a routerLink="/login">log in</a> to post a property.
+  </div>
+  <div *ngIf="isLoggedIn">
+    <form (ngSubmit)="submitProperty()" *ngIf="!successMessage">
+      <!-- Property Details -->
+      <h3>Property Details</h3>
+      <div class="form-group">
+        <label for="propertyName">Property Name</label>
+        <input id="propertyName" [(ngModel)]="property.propertyName" name="propertyName" placeholder="Enter property name" required>
+      </div>
+      <div class="form-group">
+        <label for="propertyType">Property Type</label>
+        <select id="propertyType" [(ngModel)]="property.propertyType" name="propertyType" required>
+          <option value="" disabled>Select Property Type</option>
+          <option value="APARTMENT">Apartment</option>
+          <option value="FLAT">Flat</option>
+          <option value="VILLA">Villa</option>
+          <option value="COMMERCIAL">Commercial</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="bhk">BHK</label>
+        <select id="bhk" [(ngModel)]="property.bhk" name="bhk" required>
+          <option value="" disabled>Select BHK</option>
+          <option *ngFor="let bhk of bhks" [value]="bhk">{{ bhk }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="furnishing">Furnishing</label>
+        <select id="furnishing" [(ngModel)]="property.furnishing" name="furnishing" required>
+          <option value="" disabled>Select Furnishing</option>
+          <option value="FURNISHED">Furnished</option>
+          <option value="SEMIFURNISHED">Semi-Furnished</option>
+          <option value="NONE">None</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" [(ngModel)]="property.status" name="status" required>
+          <option value="" disabled>Select Status</option>
+          <option value="AVAILABLE">Available</option>
+          <option value="UNDER_CONSTRUCTION">Under Construction</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="listedBy">Listed By</label>
+        <select id="listedBy" [(ngModel)]="property.listedBy" name="listedBy" required>
+          <option value="" disabled>Select Listed By</option>
+          <option value="OWNER">Owner</option>
+          <option value="AGENT">Agent</option>
+          <option value="BUILDER">Builder</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="price">Price (INR)</label>
+        <input id="price" type="number" [(ngModel)]="property.price" name="price" placeholder="Enter price" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="deposit">Deposit (INR)</label>
+        <input id="deposit" type="number" [(ngModel)]="property.deposit" name="deposit" placeholder="Enter deposit" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="area">Area (sq ft)</label>
+        <input id="area" type="number" [(ngModel)]="property.area" name="area" placeholder="Enter area" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="bedrooms">Bedrooms</label>
+        <input id="bedrooms" type="number" [(ngModel)]="property.bedrooms" name="bedrooms" placeholder="Enter number of bedrooms" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="bathrooms">Bathrooms</label>
+        <input id="bathrooms" type="number" [(ngModel)]="property.bathrooms" name="bathrooms" placeholder="Enter number of bathrooms" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="balconies">Balconies</label>
+        <input id="balconies" type="number" [(ngModel)]="property.balconies" name="balconies" placeholder="Enter number of balconies" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="floorNumber">Floor Number</label>
+        <input id="floorNumber" type="number" [(ngModel)]="property.floorNumber" name="floorNumber" placeholder="Enter floor number" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="totalFloors">Total Floors</label>
+        <input id="totalFloors" type="number" [(ngModel)]="property.totalFloors" name="totalFloors" placeholder="Enter total floors" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="yearBuilt">Year Built</label>
+        <input id="yearBuilt" type="number" [(ngModel)]="property.yearBuilt" name="yearBuilt" placeholder="Enter year built" required min="1900">
+      </div>
+      <div class="form-group">
+        <label for="parking">Parking Available</label>
+        <input id="parking" type="checkbox" [(ngModel)]="property.parking" name="parking">
+      </div>
+      <div class="form-group">
+        <label for="isFeatured">Featured Property</label>
+        <input id="isFeatured" type="checkbox" [(ngModel)]="property.isFeatured" name="isFeatured">
+      </div>
+
+      <!-- Address Details -->
+      <h3>Address Details</h3>
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input id="street" [(ngModel)]="address.street" name="street" placeholder="Enter street" required>
+      </div>
+      <div class="form-group">
+        <label for="landmark">Landmark</label>
+        <input id="landmark" [(ngModel)]="address.landmark" name="landmark" placeholder="Enter landmark">
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input id="location" [(ngModel)]="address.location" name="location" placeholder="Enter location">
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input id="city" [(ngModel)]="address.city" name="city" placeholder="Enter city" required>
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input id="state" [(ngModel)]="address.state" name="state" placeholder="Enter state" required>
+      </div>
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input id="country" [(ngModel)]="address.country" name="country" placeholder="Enter country" required>
+      </div>
+      <div class="form-group">
+        <label for="pinCode">Pin Code</label>
+        <input id="pinCode" [(ngModel)]="address.pinCode" name="pinCode" placeholder="Enter 6-digit pin code" required pattern="\d{6}">
+      </div>
+      <div class="form-group">
+        <label for="latitude">Latitude</label>
+        <input id="latitude" type="number" step="any" [(ngModel)]="address.latitude" name="latitude" placeholder="Enter latitude" required>
+      </div>
+      <div class="form-group">
+        <label for="longitude">Longitude</label>
+        <input id="longitude" type="number" step="any" [(ngModel)]="address.longitude" name="longitude" placeholder="Enter longitude" required>
+      </div>
+
+      <!-- Image Upload -->
+      <h3>Property Image</h3>
+      <div class="form-group">
+        <label for="image">Upload Image (JPEG, <1 MB)></label>
+        <input id="image" type="file" accept="image/jpeg" (change)="onFileSelected($event)" name="image">
+      </div>
+
+      <!-- Error and Submit -->
+      <div *ngIf="error" class="error">{{ error }}</div>
+      <div class="form-buttons">
+        <button type="submit" class="submit-button">Submit Property</button>
+        <button type="button" (click)="cancel()" class="cancel-button">Cancel</button>
+      </div>
+    </form>
+    <div *ngIf="successMessage" class="success">
+      {{ successMessage }} <a routerLink="/profile">Back to Profile</a>
+    </div>
+  </div>
+</div>

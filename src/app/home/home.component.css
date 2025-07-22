@@ -1,0 +1,134 @@
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 60px;
+}
+
+/* Portion 1 */
+.hero-section {
+  position: relative;
+  height: 400px;
+  background-image: url('../../../../../nobro-property-image/header.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.owner-section {
+  margin-top: 20px;
+}
+
+.owner-text {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  width: 330px;
+  background: #fff;
+}
+
+.post-property-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.post-property-btn:hover {
+  background-color: #218838;
+}
+
+/* Portion 2 */
+.services-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.services-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card p {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+/* Portion 3 */
+.why-section {
+  text-align: center;
+}
+
+.why-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.why-section ul {
+  list-style-type: disc;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.why-section li {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}

@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AddPropertyComponent } from './add-property/add-property.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'terms', component: TermsComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
+  { path: 'add-property', component: AddPropertyComponent},
   // { path: '', redirectTo: '/home', pathMatch: 'full' }
   { path: '', redirectTo: '/property-list', pathMatch: 'full' }
 ];
