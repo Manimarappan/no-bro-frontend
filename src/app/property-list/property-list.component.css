@@ -21,101 +21,110 @@ html, body {
   
 }
 
-.properties-panel > h2{
+.properties-panel > h2 {
   margin-top: 12px;
-  /* background-color: #0056b3; */
-
-}
-
-.property-title h3{
-  padding: 2px 15px;
-  height: 10px;
-  width: 100%;
 }
 
 .property-card {
   display: grid;
-  grid-template-rows: 0.2fr 0.4fr 1.9fr;
-  /* gap: 1rem; */
-  /* padding: 10px; */
-  /* border: 2px solid #000000; */
-  /* margin-bottom: 30px;
-  margin-right: 20px; */
+  grid-template-columns: 1fr 2fr; /* Image on left, content on right */
+  grid-template-rows: auto auto auto auto auto; /* Title, details, price, description, buttons */
+  gap: 1rem;
   margin: 15px 10px;
   border-radius: 5px;
   background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for card effect */
+}
+
+.property-title h3 {
+  padding: 10px 15px;
+  font-size: 1.5em;
+  margin: 0;
+  text-align: center;
+  background-color: #f8f9fa; /* Light background for title */
+}
+
+.property-details p {
+  display: grid;
+  grid-template-rows: 1fr;
+  padding-bottom: 10px;
+  margin: 0;
+  font-size: 1em;
+  text-align: center;
+  border-bottom: 1px solid #a8a6a6;
+}
+
+.amount-data{
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
 }
 
 .property-price{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  border: 1px solid #a8a6a6;
+  padding-left: 60px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #a8a6a6;
 }
 
-.property-price p{
-  padding: 2px 40px;
-}
-
-.image-detail{
+.property-price p {
   display: grid;
-  grid-template-columns: 2fr 2.5fr;
-  /* border: 2px solid #ccc; */
-  
-}
-
-.property-detail{
-  display: grid;
-  grid-template-rows: 1fr 1fr 0.5fr;
-  /* border: 2px solid #1d1d1d; */
-  /* padding: 1rem; */
-}
-
-.detail{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  
-}
-
-.detail p{
-    border: 2px solid #555353;
-    place-items: center;
-    text-align: center;
-    padding: 1.4rem; 
-    margin: 1rem;
-  }
-
-.detail-border{
-  /* border: 2px solid #9d0f0f; */
-  /* padding: 30px; */
+  grid-template-rows: 1fr 1fr;
+  /* padding: 8px; */
   margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+
 }
 
-.contact-owner{
+.property-description p {
+  padding-bottom: 15px;
+  margin: 0;
+  font-size: 1em;
+  line-height: 1.5; /* Better readability for description */
+  border-bottom: 1px solid #a8a6a6;
+}
+
+.contact-owner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  
+  gap: 1rem;
+  padding: 10px;
+  align-items: center;
 }
 
-.owner-detail{
+.owner-detail {
   background-color: rgb(35, 183, 35);
-  margin-left: 16px;
-  margin-bottom: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
 }
 
-.liked{
-    /* padding: 15px 50px; */
-    font-size: 22px;
-    margin-bottom: 15px;
-    margin-right: 15px;
+.liked {
+  font-size: 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #ff0000; /* Red heart by default */
 }
 
-.property-image img{
-  width: 90%;
-  height: 90%;
+.liked:hover {
+  color: #cc0000; /* Darker red on hover */
+}
+
+.property-image {
+  grid-column: 1; /* Image on the left */
+  grid-row: 1 / span 5; /* Span all rows */
+  padding: 10px;
+}
+
+.property-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  padding: 20px 10px;
-  
+  border-radius: 5px;
 }
 
 .loading, .error {
@@ -123,8 +132,23 @@ html, body {
   padding: 20px;
   font-size: 1.2em;
 }
+
 .error {
   color: red;
+}
+
+@media (max-width: 768px) {
+  .property-card {
+    grid-template-columns: 1fr; /* Stack image and content vertically */
+    grid-template-rows: auto auto auto auto auto auto; /* Adjust rows */
+  }
+  .property-image {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .property-title, .property-details, .property-price, .property-description, .contact-owner {
+    grid-column: 1;
+  }
 }
 
 /* Filter CSS ------------------------------------------------ */
@@ -175,14 +199,10 @@ html, body {
     font-size: 12px;
 }
 .rangecss{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-.rangecss label{
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 .filter-group select:focus,

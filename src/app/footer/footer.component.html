@@ -1,0 +1,29 @@
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <p>© 2022 NoBrokerage.com Reserve All Rights</p>
+    </div>
+    <div class="footer-section">
+      <div class="dropup" (click)="toggleDropup()">
+        <a class="dropbtn">Contact Us</a>
+        <div class="dropup-content" [ngClass]="{'show': isDropupOpen}">
+          <a href="#">Help Center</a>
+          <a href="#">Report Problem</a>
+          <a href="#">Request Info</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-section">
+      <a href="#">Our Service</a>
+    </div>
+    <div class="footer-section">
+      <a href="#">Blog</a>
+    </div>
+    <div class="footer-section">
+      <a href="#">Safety Guide</a>
+    </div>
+    <div class="footer-section">
+      <a href="#">FAQ</a>
+    </div>
+  </div>
+</footer>

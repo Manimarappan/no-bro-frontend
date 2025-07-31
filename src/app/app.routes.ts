@@ -14,6 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { AddPropertyComponent } from './add-property/add-property.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { CareerComponent } from './career/career.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -28,6 +30,8 @@ export const routes: Routes = [
   { path: 'terms', component: TermsComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
   { path: 'add-property', component: AddPropertyComponent},
+  { path: 'about-us', component:AboutUsComponent},
+  { path: 'career', component:CareerComponent},
   // { path: '', redirectTo: '/home', pathMatch: 'full' }
   { path: '', redirectTo: '/property-list', pathMatch: 'full' }
 ];

@@ -22,7 +22,7 @@ export class LikedPropertiesComponent implements OnInit {
   }
 
   loadLikedProperties() {
-    this.http.get(`http://localhost:8080/api/liked-properties?userId=${this.userId}&page=0&pageSize=5`).subscribe({
+    this.http.get(`http://localhost:8080/api/liked-properties?userId=${this.userId}&page=0&pageSize=100`).subscribe({
       next: (response: any) => {
         console.log('Liked properties loaded', response);
         this.totalProperties = response.data.totalElements;
@@ -61,7 +61,8 @@ export class LikedPropertiesComponent implements OnInit {
   fetchImage(imageId: number, index: number) {
     this.http.get(`http://localhost:8080/api/images/${imageId}`).subscribe({
       next: (response: any) => {
-        this.properties[index].image = 'data:image/jpeg;base64,' + response.data;
+        console.log("responser",response)
+        this.properties[index].image = 'data:image/jpeg;base64,' + response.data.data;
       },
       error: (error) => {
         console.error('Failed to load image', error);

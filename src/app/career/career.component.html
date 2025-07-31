@@ -1,0 +1,72 @@
+<div class="container">
+  <header class="header">
+    <h1>Join No Bro</h1>
+    <p>Be part of our mission to revolutionize the rental housing market!</p>
+  </header>
+
+  <section class="culture-section fade-in">
+    <h2>Our Culture</h2>
+    <p>No Bro, founded in 2020, is dedicated to making renting simple, affordable, and transparent by connecting tenants directly with property owners. Join our innovative team in Bangalore, India, to build technology that empowers renters worldwide. We value creativity, collaboration, and a passion for solving real-world problems.</p>
+  </section>
+
+  <section class="jobs-section fade-in">
+    <h2>Open Positions</h2>
+    <div class="jobs-list">
+      <div *ngFor="let job of jobs; let i = index" class="job-card" [ngClass]="{'loading': !job}">
+        <h3>{{ job.title }}</h3>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p><strong>Type:</strong> {{ job.type }}</p>
+        <p>{{ job.description }}</p>
+        <button >Apply Now</button> <!-- (click)="applyNow(job)" -->
+      </div>
+      <div *ngIf="!jobs.length" class="loader">Loading jobs...</div>
+    </div>
+  </section>
+
+  <section class="benefits-section fade-in">
+    <h2>Why Work With Us?</h2>
+    <div class="benefits-list">
+      <div class="benefit-card">
+        <i class="fas fa-briefcase"></i>
+        <h3>Impactful Work</h3>
+        <p>Contribute to a platform that transforms how people find homes.</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-users"></i>
+        <h3>Collaborative Culture</h3>
+        <p>Join a diverse team that values open communication and innovation.</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-laptop"></i>
+        <h3>Flexible Work</h3>
+        <p>Enjoy remote work options and a healthy work-life balance.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section fade-in">
+    <h2>Apply Today</h2>
+    <form #careerForm="ngForm" (ngSubmit)="submitApplication(careerForm.value)">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" ngModel required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" ngModel required>
+      </div>
+      <div class="form-group">
+        <label for="position">Position</label>
+        <select id="position" name="position" ngModel required>
+          <option *ngFor="let job of jobs" [value]="job.title">{{ job.title }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="resume">Resume (PDF)</label>
+        <input type="file" id="resume" name="resume" accept=".pdf">
+      </div>
+      <button type="submit" [disabled]="!careerForm.valid">Submit Application</button>
+    </form>
+  </section>
+
+</div>

@@ -64,37 +64,51 @@
 </aside>
 
 <section class="properties-panel">
-  <h2>property</h2>
+  <h2>Properties</h2>
   <div *ngIf="isLoading" class="loading">Loading properties...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
   <div *ngIf="!isLoading && !error" class="properties-list">
     <div class="property-card" *ngFor="let property of properties">
       <div class="property-title">
-        <h3>{{ property.propertyName }}</h3>
+        <h3>{{ property.propertyName | uppercase }}</h3>
+      </div>
+      <div class="property-details">
+        <p>{{ property.bhk }} {{ property.furnishing }}  {{ property.propertyType }} in {{ property.location }}, {{ property.city }}</p>
       </div>
       <div class="property-price">
-        <p><strong>Rent:</strong> {{ property.price | currency:'INR' }}</p>
-        <p><strong>Deposit:</strong> {{ property.deposit | currency:'INR' }}</p>
-        <p><strong>Area:</strong> {{ property.area }} sqft</p>
+        <p class="amount-data">
+          <strong >Rent:</strong><br>
+          <strong >₹{{ property.price }}</strong> 
+          <!-- <span>|</span> -->
+        </p>
+        <p class="amount-data">
+          <strong >Sqft:</strong><br>
+          <strong >{{ property.area }} sqft</strong>
+          <!-- <span>|</span> -->
+        </p> 
+        <p class="amount-data">
+          <strong>Deposit:</strong><br>
+          <strong>₹{{ property.deposit }}</strong>
+        </p>
+        <!-- <p class="amount-data">
+          <strong class="right-border">₹{{ property.price }}</strong> 
+          <strong class="right-border">{{ property.area }} sqft</strong>  
+          <strong>₹{{ property.deposit }}</strong>
+        </p> -->
+        
       </div>
-      <div class="image-detail">
-        <div class="property-image">
-          <img src="./../../assets/images/pexels-naimbic-2.jpg">
-        </div>
-        <div class="property-detail">
-          <div class="detail">
-            <p><strong>Location:</strong><br> {{ property.location }}, {{ property.city }}</p>
-            <p><strong>Type:</strong><br> {{ property.propertyType }}</p>
-          </div>
-          <div class="detail">
-            <p><strong>BHK:</strong><br> {{ property.bhk }}</p>
-            <p><strong>Furnishing:</strong><br> {{ property.furnishing }}</p>
-          </div>
-          <div class="contact-owner">
-            <button class="owner-detail" (click)="viewDetails(property.id)">Get More Details</button>
-            <button class="liked" (click)="addToLikedProperty(property.id)" ><i class="fa-regular fa-heart"></i></button>
-          </div>
-        </div>
+      <div class="property-description">
+        <p>{{ property.description }}</p>
+      </div>
+      <div class="contact-owner">
+        <button class="owner-detail" (click)="viewDetails(property.id)">Get More Details</button>
+        <button class="liked" (click)="addToLikedProperty(property.id)"><i class="fa-regular fa-heart"></i></button>
+      </div>
+      <div class="property-image">
+
+        <img *ngIf="property.image" [src]="'data:image/jpeg;base64,' + property.image" alt="Property Image">
+        <img *ngIf="!property.image" src="./../../assets/images/pexels-naimbic-2.jpg" alt="sample Property Image">
+
       </div>
     </div>
   </div>

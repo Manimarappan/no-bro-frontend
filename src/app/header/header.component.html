@@ -3,8 +3,13 @@
     <a routerLink="/home">N0-BRO<span class ="ker">ker</span></a>
   </div>
   <nav class="nav">
+    
+    <a *ngIf="userId" [routerLink]="['/add-property']" class="nav-item">Add Property</a>
+   
     <a *ngIf="!userId" routerLink="/signup" class="nav-item">Sign up</a>
     <a *ngIf="!userId" routerLink="/login" class="nav-item">Log in</a>
+    <a routerLink="/career" class="nav-item">Career</a>
+    <a routerLink="/about-us" class="nav-item">About Us</a>
     <a routerLink="/liked-properties" class="nav-item">
       <i class="fa-regular fa-heart"></i>
     </a>

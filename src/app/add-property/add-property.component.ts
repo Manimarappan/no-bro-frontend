@@ -34,7 +34,8 @@ export class AddPropertyComponent implements OnInit {
     listedBy: '',
     userId: this.userId,
     imageId: null,
-    isFeatured: false
+    isFeatured: false,
+    description: null
   };
   address: any = {
     street: '',

@@ -16,7 +16,7 @@
         <select id="propertyType" [(ngModel)]="property.propertyType" name="propertyType" required>
           <option value="" disabled>Select Property Type</option>
           <option value="APARTMENT">Apartment</option>
-          <option value="FLAT">Flat</option>
+          <!-- <option value="FLAT">Flat</option> -->
           <option value="VILLA">Villa</option>
           <option value="COMMERCIAL">Commercial</option>
         </select>
@@ -32,17 +32,17 @@
         <label for="furnishing">Furnishing</label>
         <select id="furnishing" [(ngModel)]="property.furnishing" name="furnishing" required>
           <option value="" disabled>Select Furnishing</option>
-          <option value="FURNISHED">Furnished</option>
-          <option value="SEMIFURNISHED">Semi-Furnished</option>
-          <option value="NONE">None</option>
+          <option value="Furnished">Furnished</option>
+          <option value="Semi Furnished">Semi Furnished</option>
+          <option value="None">None</option>
         </select>
       </div>
       <div class="form-group">
         <label for="status">Status</label>
         <select id="status" [(ngModel)]="property.status" name="status" required>
           <option value="" disabled>Select Status</option>
-          <option value="AVAILABLE">Available</option>
-          <option value="UNDER_CONSTRUCTION">Under Construction</option>
+          <option value="Available">Available</option>
+          <option value="Under Construction">Under Construction</option>
         </select>
       </div>
       <div class="form-group">
@@ -98,6 +98,11 @@
         <label for="isFeatured">Featured Property</label>
         <input id="isFeatured" type="checkbox" [(ngModel)]="property.isFeatured" name="isFeatured">
       </div>
+      <div class="form-group">
+         <label for="description">Description</label>
+         <textarea class="description" id="description" [(ngModel)]="property.description" name="description" placeholder="Describe about Your Property"></textarea>
+      </div>
+      
 
       <!-- Address Details -->
       <h3>Address Details</h3>

@@ -31,6 +31,7 @@ export class PropertyListComponent implements OnInit {
     private apiUrl = 'http://localhost:8080/api/properties/search';
     private addressApiUrl = 'http://localhost:8080/api/properties/address';
     private likedApiUrl = 'http://localhost:8080/api/liked-properties';
+    private imageApiUrl = 'http://localhost:8080/api/images';
 
     propertyTypeOptions: string[] = ['APARTMENT', 'VILLA', 'COMMERCIAL'];
     furnishingOptions: string[] = ['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'];
@@ -67,6 +68,19 @@ export class PropertyListComponent implements OnInit {
                             ).catch(() => ({ success: false, data: { location: 'Not specified' } }));
                             //storeing fetched data only into addres.
                             const address = addressResponse.success ? addressResponse.data : { area: 'Not specified', city: 'Not specified' };
+
+                            // [CHANGED] Fetch image data using imageId
+                            let imageData: { id: number | null, image: string | null } = { id: null, image: null };
+                            if (item.imageId) {
+                            const imageResponse = await firstValueFrom(
+                                this.http.get<{ success: boolean, data: { id: number, data: string } }>(`${this.imageApiUrl}/${item.imageId}`)
+                            ).catch(() => ({ success: false, data: { id: null, data: null } }));
+                            imageData = imageResponse.success ? { id: imageResponse.data.id, image: imageResponse.data.data } : { id: null, image: null };
+                            console.log("response of image", imageResponse);
+                            console.log("response of id", imageData.id);
+                            console.log("Base64 image:", imageData.image?.substring(0, 50));
+                            }
+                            
                             //return and storing fetched property into properties
                             return {
                                 id: item.propertyId,
@@ -89,7 +103,9 @@ export class PropertyListComponent implements OnInit {
                                 viewsCount: item.viewsCount,
                                 listedBy: item.listedBy || item.userId,
                                 isFeatured: item.featured || item.isFeatured,
-                                imageId: item.imageId
+                                imageId: item.imageId,
+                                description: item.description,
+                                image: imageData.image
                             };
                         }));
                         this.totalPages = response.data.totalPages;

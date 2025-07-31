@@ -77,6 +77,10 @@
         <td class="value">{{ property.isFeatured ? 'Yes' : 'No' }}</td>
       </tr>
       <tr>
+        <td class="label">Description</td>
+        <td class="value">{{ property.description || 'N/A' }}</td>
+      </tr>
+      <tr>
         <td class="label">Created At</td>
         <td class="value">{{ property.createdAt ? (property.createdAt | date:'medium') : 'N/A' }}</td>
       </tr>
@@ -97,11 +101,26 @@
       </tr>
       <tr>
         <td class="label">Email</td>
-        <td class="value">{{ user.email || 'Unknown' }}</td>
+        <td class="value">
+          <a href="https://mail.google.com/mail/?view=cm&to={{user.email}}" target="_blank">{{user.email}}</a>
+        </td>
       </tr>
+      <!-- <tr>
+        <td class="label">Email</td>
+        <td class="value">{{ user.email || 'Unknown' }}</td>
+      </tr> -->
       <tr>
         <td class="label">Phone Number</td>
-        <td class="value">{{ user.phoneNumber || 'N/A' }}</td>
+        <td class="value">
+          <ng-container *ngIf="user?.phoneNumber; else noPhone">
+            <a [attr.href]="'tel:' + user.phoneNumber">
+              {{ user.phoneNumber }}
+            </a>
+          </ng-container>
+          <ng-template #noPhone>
+            N/A
+          </ng-template>
+        </td>
       </tr>
       <tr>
         <td class="label">User Type</td>
@@ -115,14 +134,14 @@
         <td class="label">Last Login</td>
         <td class="value">{{ user.lastLogin ? (user.lastLogin | date:'medium') : 'N/A' }}</td>
       </tr> -->
-      <tr>
+      <!-- <tr>
         <td class="label">Created At</td>
         <td class="value">{{ user.createdAt ? (user.createdAt | date:'medium') : 'N/A' }}</td>
       </tr>
       <tr>
         <td class="label">Updated At</td>
         <td class="value">{{ user.updatedAt ? (user.updatedAt | date:'medium') : 'N/A' }}</td>
-      </tr>
+      </tr> -->
       <!-- <tr>
         <td class="label">Status</td>
         <td class="value">{{ user.status || 'N/A' }}</td>
@@ -165,6 +184,18 @@
       <tr>
         <td class="label">Coordinates</td>
         <td class="value">{{ address.latitude || 'N/A' }}, {{ address.longitude || 'N/A' }}</td>
+      </tr>
+      <tr>
+        <td class="label">Google map</td>
+        <td class="value">
+          <a 
+            [attr.href]="'https://www.google.com/maps?q=' + address.latitude + ',' + address.longitude" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            Find in Map
+          </a>
+        </td>
       </tr>
     </table>
   </div>

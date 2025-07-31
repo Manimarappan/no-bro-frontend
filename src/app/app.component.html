@@ -1,15 +1,7 @@
-<app-header></app-header>
-<!-- <div class="main-container">
-  <app-property-list 
-    [properties]="paginatedProperties" 
-    [filters]="filters" 
-    (applyFilters)="applyFilters()" 
-    (resetFilters)="resetFilters()" 
-    [currentPage]="currentPage" 
-    [totalPages]="totalPages" 
-    (prevPage)="prevPage()" 
-    (nextPage)="nextPage()">
-  </app-property-list>
-</div> -->
-
-<router-outlet></router-outlet>
+<div class="app-container">
+  <app-header></app-header>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</div>

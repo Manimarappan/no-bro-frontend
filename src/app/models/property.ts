@@ -1,3 +1,5 @@
+import { Image } from "./Image";
+
 // src/app/models/property.interface.ts
 export interface Property {
   id: string; // Maps to property_id
@@ -25,5 +27,7 @@ export interface Property {
   createdAt?: string;
   updatedAt?: string;
   city: string;
-  location : string
+  location : string;
+  description: string;
+  image: string | null | Image;
 }

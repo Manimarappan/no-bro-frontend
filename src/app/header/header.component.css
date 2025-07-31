@@ -51,6 +51,12 @@ body {
   margin-left: 0.5rem;
 }
 
+.line{
+  width: 1px;
+  height: 2px;
+  color: aqua;
+}
+
 .nav-item:hover {
   color: #007bff;
 }
