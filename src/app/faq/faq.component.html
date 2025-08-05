@@ -1,0 +1,47 @@
+<div class="container">
+  <header class="header fade-in">
+    <h1>Frequently Asked Questions</h1>
+    <p>Learn more about how No Bro makes renting simple, affordable, and transparent.</p>
+  </header>
+
+  <section class="faq-section fade-in">
+    <h2>Your Questions, Answered</h2>
+    <div class="faq-list">
+      <div *ngFor="let faq of faqs; let i = index" class="faq-item slide-in" [ngClass]="{'open': faq.isOpen}">
+        <div class="faq-question" (click)="toggleFaq(i)">
+          <h3>{{ faq.question }}</h3>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer" *ngIf="faq.isOpen">
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+      <div *ngIf="!faqs.length" class="loader">Loading FAQs...</div>
+    </div>
+  </section>
+
+  <section class="contact-section fade-in">
+    <h2>Still Have Questions?</h2>
+    <p>Contact our team in Bangalore, India, for personalized assistance.</p>
+    <!-- <div class="contact-info">
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+91 98765 43210</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>support@nobro.com</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>123, MG Road, Bangalore, Karnataka 560001, India</span>
+      </div>
+    </div>
+    <div class="social-media">
+      <a href="#" class="fab fa-facebook-f"></a>
+      <a href="#" class="fab fa-twitter"></a>
+      <a href="#" class="fab fa-linkedin-in"></a>
+      <a href="#" class="fab fa-instagram"></a>
+    </div> -->
+  </section>
+</div>
