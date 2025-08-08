@@ -1,0 +1,20 @@
+<div class="report-problem-container">
+  <header class="header">
+    <h1>Report a Problem</h1>
+    <p>Encountered an issue? Let us know by filling out the form below, and our team will address it promptly.</p>
+  </header>
+
+  <section class="form-section">
+    <div class="form-container">
+      <form class="report-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="report">Describe the Problem</label>
+          <textarea id="report" name="report" placeholder="Please describe the issue you are facing" required rows="6" [(ngModel)]="reportText"></textarea>
+        </div>
+        <button type="submit" class="submit-button" [disabled]="!reportText">Report Problem</button>
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      </form>
+    </div>
+  </section>
+
+</div>

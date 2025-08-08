@@ -1,9 +1,12 @@
 <div class="profile-container">
-  <h2>User Profile</h2>
-  <div *ngIf="error" class="error">{{ error }}</div>
-  <div *ngIf="user" class="profile-details">
+  <header class="header">
+    <h1>User Profile</h1>
+    <p>Manage your profile and listed properties on No Bro.</p>
+  </header>
 
-   <div class="profile-item profile-pic-container">
+  <div *ngIf="error" class="error-message">{{ error }} <a routerLink="/login">Log in</a></div>
+  <div *ngIf="user" class="profile-details">
+    <div class="profile-pic-container">
       <img [src]="user.profilePic || 'assets/placeholder.jpg'" alt="User Photo" class="profile-image">
       <span *ngIf="!isEditing" class="verification-status">Not Verified</span>
       <div *ngIf="isEditing" class="edit-image-container">
@@ -47,4 +50,185 @@
     </div>
   </div>
   <div *ngIf="!user && !error" class="loading">Loading...</div>
+
+  <!-- Properties Section -->
+  <section class="property-section" *ngIf="properties.length > 0">
+    <h2>Your Properties</h2>
+    <div class="property-grid">
+      <div class="property-card" *ngFor="let property of properties" >
+        <img [src]="'data:image/jpeg;base64,' + property.image.data" alt="Property Image" class="property-image">
+        <div class="property-details">
+          <h3>{{ property.propertyName }} - {{ property.bhk }}</h3> 
+          <p class="location">{{ property.address?.city || 'Loading...' }}</p>
+          <p class="price">₹{{ property.price | number }}</p>
+          <div class="action-buttons">
+            <a [routerLink]="['/property-detail', property.propertyId]" class="details-button">More Details</a>
+            <button class="update-button" (click)="openUpdateForm(property)">Update</button>
+            <button class="delete-button" (click)="deleteProperty(property.propertyId)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div *ngIf="properties.length === 0 && !error" class="no-properties">No properties listed yet.</div>
+
+  <!-- Update Property Form (Modal) -->
+  <div class="modal-overlay" *ngIf="showUpdateForm">
+    <div class="modal-content">
+      <h2>Update Property</h2>
+      <form class="property-form" (ngSubmit)="updateProperty()" #propertyForm="ngForm">
+        <!-- Property Details -->
+        <h3>Property Details</h3>
+        <div class="form-group">
+          <label for="propertyName">Property Name</label>
+          <input id="propertyName" [(ngModel)]="selectedProperty.propertyName" name="propertyName" placeholder="Enter property name" required>
+        </div>
+        <div class="form-group">
+          <label for="propertyType">Property Type</label>
+          <select id="propertyType" [(ngModel)]="selectedProperty.propertyType" name="propertyType" required>
+            <option value="" disabled>Select Property Type</option>
+            <option value="APARTMENT">Apartment</option>
+            <option value="VILLA">Villa</option>
+            <option value="COMMERCIAL">Commercial</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="bhk">BHK</label>
+          <select id="bhk" [(ngModel)]="selectedProperty.bhk" name="bhk" required>
+            <option value="" disabled>Select BHK</option>
+            <option *ngFor="let bhk of bhks" [value]="bhk">{{ bhk }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="furnishing">Furnishing</label>
+          <select id="furnishing" [(ngModel)]="selectedProperty.furnishing" name="furnishing" required>
+            <option value="" disabled>Select Furnishing</option>
+            <option value="Furnished">Furnished</option>
+            <option value="Semi Furnished">Semi Furnished</option>
+            <option value="None">None</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" [(ngModel)]="selectedProperty.status" name="status" required>
+            <option value="" disabled>Select Status</option>
+            <option value="Available">Available</option>
+            <option value="Under Construction">Under Construction</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="listedBy">Listed By</label>
+          <select id="listedBy" [(ngModel)]="selectedProperty.listedBy" name="listedBy" required>
+            <option value="" disabled>Select Listed By</option>
+            <option value="OWNER">Owner</option>
+            <option value="AGENT">Agent</option>
+            <option value="BUILDER">Builder</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="price">Price (INR)</label>
+          <input id="price" type="number" [(ngModel)]="selectedProperty.price" name="price" placeholder="Enter price" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="deposit">Deposit (INR)</label>
+          <input id="deposit" type="number" [(ngModel)]="selectedProperty.deposit" name="deposit" placeholder="Enter deposit" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="area">Area (sq ft)</label>
+          <input id="area" type="number" [(ngModel)]="selectedProperty.area" name="area" placeholder="Enter area" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="bedrooms">Bedrooms</label>
+          <input id="bedrooms" type="number" [(ngModel)]="selectedProperty.bedrooms" name="bedrooms" placeholder="Enter number of bedrooms" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="bathrooms">Bathrooms</label>
+          <input id="bathrooms" type="number" [(ngModel)]="selectedProperty.bathrooms" name="bathrooms" placeholder="Enter number of bathrooms" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="balconies">Balconies</label>
+          <input id="balconies" type="number" [(ngModel)]="selectedProperty.balconies" name="balconies" placeholder="Enter number of balconies" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="floorNumber">Floor Number</label>
+          <input id="floorNumber" type="number" [(ngModel)]="selectedProperty.floorNumber" name="floorNumber" placeholder="Enter floor number" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="totalFloors">Total Floors</label>
+          <input id="totalFloors" type="number" [(ngModel)]="selectedProperty.totalFloors" name="totalFloors" placeholder="Enter total floors" required min="0">
+        </div>
+        <div class="form-group">
+          <label for="yearBuilt">Year Built</label>
+          <input id="yearBuilt" type="number" [(ngModel)]="selectedProperty.yearBuilt" name="yearBuilt" placeholder="Enter year built" required min="1900">
+        </div>
+        <div class="form-group">
+          <label for="parking">Parking Available</label>
+          <input id="parking" type="checkbox" [(ngModel)]="selectedProperty.parking" name="parking">
+        </div>
+        <div class="form-group">
+          <label for="isFeatured">Featured Property</label>
+          <input id="isFeatured" type="checkbox" [(ngModel)]="selectedProperty.isFeatured" name="isFeatured">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" [(ngModel)]="selectedProperty.description" name="description" placeholder="Describe your property" rows="5"></textarea>
+        </div>
+
+        <!-- Address Details -->
+        <h3>Address Details</h3>
+        <div class="form-group">
+          <label for="street">Street</label>
+          <input id="street" [(ngModel)]="selectedProperty.address.street" name="street" placeholder="Enter street" required>
+        </div>
+        <div class="form-group">
+          <label for="landmark">Landmark</label>
+          <input id="landmark" [(ngModel)]="selectedProperty.address.landmark" name="landmark" placeholder="Enter landmark">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" [(ngModel)]="selectedProperty.address.location" name="location" placeholder="Enter location">
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input id="city" [(ngModel)]="selectedProperty.address.city" name="city" placeholder="Enter city" required>
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <input id="state" [(ngModel)]="selectedProperty.address.state" name="state" placeholder="Enter state" required>
+        </div>
+        <div class="form-group">
+          <label for="country">Country</label>
+          <input id="country" [(ngModel)]="selectedProperty.address.country" name="country" placeholder="Enter country" required>
+        </div>
+        <div class="form-group">
+          <label for="pinCode">Pin Code</label>
+          <input id="pinCode" [(ngModel)]="selectedProperty.address.pinCode" name="pinCode" placeholder="Enter 6-digit pin code" required pattern="\d{6}">
+        </div>
+        <div class="form-group">
+          <label for="latitude">Latitude</label>
+          <input id="latitude" type="number" step="any" [(ngModel)]="selectedProperty.address.latitude" name="latitude" placeholder="Enter latitude" required>
+        </div>
+        <div class="form-group">
+          <label for="longitude">Longitude</label>
+          <input id="longitude" type="number" step="any" [(ngModel)]="selectedProperty.address.longitude" name="longitude" placeholder="Enter longitude" required>
+        </div>
+
+        <!-- Image Upload -->
+        <!-- <h3>Property Image</h3>
+        <div class="form-group">
+          <label for="image">Upload Image (JPEG, <1 MB)></label>
+          <input id="image" type="file" accept="image/jpeg" (change)="onPropertyFileSelected($event)" name="image">
+          <p *ngIf="selectedProperty.image?.url" class="current-image">Current Image: {{ selectedProperty.image.fileName }}</p>
+        </div> -->
+
+        <!-- Error and Buttons -->
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+        <div class="form-buttons">
+          <button type="submit" class="submit-button" [disabled]="!propertyForm.valid">Update Property</button>
+          <button type="button" class="cancel-button" (click)="closeUpdateForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </div>

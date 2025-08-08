@@ -21,7 +21,7 @@ export class PropertyListComponent implements OnInit {
         propertyType: '',
         bhkType: '',
         furnishing: '',
-        rent: 50000,
+        rent: 100000,
         city: ''
     };
     currentPage: number = 0;
@@ -32,6 +32,9 @@ export class PropertyListComponent implements OnInit {
     private addressApiUrl = 'http://localhost:8080/api/properties/address';
     private likedApiUrl = 'http://localhost:8080/api/liked-properties';
     private imageApiUrl = 'http://localhost:8080/api/images';
+
+    notification: { message: string, type: 'success' | 'error' } | null = null; // Add notification state
+    private notificationTimeout: any = null; // Store timeout reference
 
     propertyTypeOptions: string[] = ['APARTMENT', 'VILLA', 'COMMERCIAL'];
     furnishingOptions: string[] = ['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'];
@@ -126,25 +129,31 @@ export class PropertyListComponent implements OnInit {
     }
 
     //To add liked property into liked property database
-    addToLikedProperty(propertyId: string) {
-        console.log("user::"+Number(localStorage.getItem('userId')));
-        const userId = Number(localStorage.getItem('userId'));
-        if (!userId || userId <= 0) {
-            this.error = 'Please log in to like a property';
-            console.log("user id is not fetched");
-            return;
-        }
-        this.http.post(`${this.likedApiUrl}/${propertyId}?userId=${userId}`, {}).subscribe({
-            next: (response: any) => {
-                console.log('Property liked', response);
-                this.error = null;
-            },
-            error: (error) => {
-                console.error('Like failed', error);
-                this.error = 'Failed to like property: ' + (error.error?.message || 'Please try again');
-            }
-        });
+addToLikedProperty(propertyId: string) {
+    console.log("user::" + Number(localStorage.getItem('userId')));
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId || userId <= 0) {
+        this.error = 'Please log in to like a property';
+        console.log("user id is not fetched");
+        this.notification = { message: this.error, type: 'error' };
+        setTimeout(() => (this.notification = null), 5000); // Hide after 5 seconds
+        return;
     }
+    this.http.post(`${this.likedApiUrl}/${propertyId}?userId=${userId}`, {}).subscribe({
+        next: (response: any) => {
+            console.log('Property liked', response);
+            this.error = null;
+            this.notification = { message: 'Property liked successfully!', type: 'success' };
+            setTimeout(() => (this.notification = null), 5000); // Hide after 5 seconds
+        },
+        error: (error) => {
+            // console.error('Like failed', error);
+            // this.error = 'Failed to like property: ' + (error.error?.message || 'Please try again');
+            this.notification = { message: 'Property already liked!', type: 'error' };
+            setTimeout(() => (this.notification = null), 5000); // Hide after 5 seconds
+        },
+    });
+}
 
     onApplyFilters(): void {
         this.currentPage = 0;

@@ -3,6 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 40px;
+  padding-bottom: 0;
 }
 
 h2 {
@@ -80,6 +81,34 @@ h2 {
   font-size: 16px;
   padding: 20px;
 }
+
+.goto-property {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  font-size: 16px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 15px;
+  margin-left: 440px;
+}
+
+.goto-property:hover {
+  background: linear-gradient(to right, #bd43e9, #38cff9);
+  /* transform: scale(1.05); */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.goto-property:active { 
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
 
 .property-table::-webkit-scrollbar {
   height: 8px;

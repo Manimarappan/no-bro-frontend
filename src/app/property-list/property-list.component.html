@@ -39,7 +39,7 @@
     </div>
     <div class="filter-group rangecss">
       <label for="rent">Rent Range (₹):</label>
-      <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="100000" step="1000" (change)="onApplyFilters()">
+      <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="200000" step="1000" (change)="onApplyFilters()">
       <span>{{ filters.rent | currency:'INR' }}</span>
     </div>
     <div class="filter-group">
@@ -64,6 +64,9 @@
 </aside>
 
 <section class="properties-panel">
+  <div *ngIf="notification" class="notification" [ngClass]="notification.type">
+    {{ notification.message }}
+  </div>
   <h2>Properties</h2>
   <div *ngIf="isLoading" class="loading">Loading properties...</div>
   <div *ngIf="error" class="error">{{ error }}</div>

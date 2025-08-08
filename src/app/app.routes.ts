@@ -20,6 +20,9 @@ import { FaqComponent } from './faq/faq.component';
 import { SafetyGuideComponent } from './safety-guide/safety-guide.component';
 import { BlogComponent } from './blog/blog.component';
 import { OurServiceComponent } from './our-service/our-service.component';
+import { RequestInfoComponent } from './request-info/request-info.component';
+import { ReportProblemComponent } from './report-problem/report-problem.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -40,6 +43,9 @@ export const routes: Routes = [
   { path: 'safety-guide', component:SafetyGuideComponent},
   { path: 'blog', component: BlogComponent},
   { path: 'our-service', component:OurServiceComponent},
+  { path: 'request-info', component:RequestInfoComponent},
+  { path: 'report-problem', component:ReportProblemComponent},
+  { path: 'help-center', component:HelpCenterComponent},
   // { path: '', redirectTo: '/home', pathMatch: 'full' }
   { path: '', redirectTo: '/property-list', pathMatch: 'full' }
 ];
