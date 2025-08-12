@@ -10,6 +10,11 @@ body {
   color: #333;
 }
 
+i, .fa, .fas, .fa-solid, .fa-regular, .fa-brands {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900; /* solid icons need 900 weight */
+}
+
 .container {
   max-width: 1200px;
   margin: 80px auto 20px;

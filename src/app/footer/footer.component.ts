@@ -12,8 +12,12 @@ export class FooterComponent {
 
   isDropupOpen = false;
 
-  toggleDropup() {
-    this.isDropupOpen = !this.isDropupOpen;
+  showDropup() {
+    this.isDropupOpen = true;
+  }
+
+  hideDropup() {
+    this.isDropupOpen = false;
   }
 
 }

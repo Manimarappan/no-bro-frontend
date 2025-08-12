@@ -33,14 +33,15 @@
       <select id="furnishing" [(ngModel)]="filters.furnishing" name="furnishing" (change)="onApplyFilters()">
         <option value="">Furnishing</option>
         <option value="FURNISHED">Furnished</option>
-        <option value="SEMI_FURNISHED">Semi-Furnished</option>
+        <option value="SEMI FURNISHED">Semi-Furnished</option>
         <option value="UNFURNISHED">Unfurnished</option>
       </select>
     </div>
     <div class="filter-group rangecss">
-      <label for="rent">Rent Range (₹):</label>
       <input type="range" id="rent" [(ngModel)]="filters.rent" name="rent" min="5000" max="200000" step="1000" (change)="onApplyFilters()">
-      <span>{{ filters.rent | currency:'INR' }}</span>
+      <div class="range-label">
+        <span>Rent: {{ filters.rent | currency:'INR':'symbol':'1.0-0' }}</span>
+      </div>
     </div>
     <div class="filter-group">
       <!-- <label for="location">Location</label> -->
@@ -85,7 +86,7 @@
           <!-- <span>|</span> -->
         </p>
         <p class="amount-data">
-          <strong >Sqft:</strong><br>
+          <strong >Area:</strong><br>
           <strong >{{ property.area }} sqft</strong>
           <!-- <span>|</span> -->
         </p> 

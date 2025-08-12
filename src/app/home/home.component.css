@@ -155,3 +155,9 @@
 .home-paragraph{
   max-width: 600px;
 }
+
+i, .fa, .fas, .fa-solid, .fa-regular, .fa-brands {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900; /* solid icons need 900 weight */
+  font-size: 40px;
+}

@@ -4,7 +4,7 @@
       <p>© 2022 NoBrokerage.com Reserve All Rights</p>
     </div>
     <div class="footer-section">
-      <div class="dropup" (click)="toggleDropup()">
+      <div class="dropup" (mouseenter)="showDropup()" (mouseleave)="hideDropup()">
         <a class="dropbtn">Contact Us</a>
         <div class="dropup-content" [ngClass]="{'show': isDropupOpen}">
           <a href="help-center">Help Center</a>
